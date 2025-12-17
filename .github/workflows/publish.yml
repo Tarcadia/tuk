@@ -28,11 +28,20 @@ jobs:
 
       - name: Build package
         run: |
-          python setup.py sdist bdist_wheel
+          python setup_tuk.py sdist bdist_wheel
+          python setup_tukit.py sdist bdist_wheel
           twine check dist/*
 
-      - name: Publish package
+      - name: Publish package tuk
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN_PROJ_TUK }}
-        run: twine upload dist/*
+          TWINE_PASSWORD: ${{ secrets.PYPI_PROJTOKEN_TUK }}
+        run: |
+          twine upload dist/tuk-*
+
+      - name: Publish package tukit
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_PROJTOKEN_TUKIT }}
+        run: |
+          twine upload dist/tukit-*

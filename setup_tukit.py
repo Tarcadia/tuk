@@ -4,9 +4,12 @@
 import sys
 import setuptools
 from pathlib import Path
+from importlib import import_module
 
-NAME = "tuk"
+PKG = "tuk.__top__"
+NAME = "tukit"
 DESCRIPTION = "Tarcadia's Utility Kit"
+KEYWORDS = ["utility", "tuk"]
 
 CSD = Path(__file__).parent.resolve()
 PATH_SRC = CSD / "src"
@@ -18,7 +21,7 @@ PATH_README = CSD / "README.md"
 
 
 sys.path.insert(0, PATH_SRC.as_posix())
-import tuk.__top__ as pkg
+pkg = import_module(PKG)
 
 
 
@@ -42,6 +45,7 @@ def _get_version():
         return pkg.__version__
 
 
+
 setuptools.setup(
     name=NAME,
     description=DESCRIPTION,
@@ -61,7 +65,7 @@ setuptools.setup(
     python_requires=">=3.11",
     setup_requires=["setuptools_scm>=6.0"],
     install_requires=_get_requirements(),
-    keywords=["utility", "tuk"],
+    keywords=KEYWORDS,
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
